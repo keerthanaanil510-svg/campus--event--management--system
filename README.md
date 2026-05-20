@@ -1,7 +1,7 @@
 # Campus Events and Club Management System
 ## Team Members
 -KEERTHANA K V
--GAYATHRI AJIT
+-GAYATHRI AJITH
 -ANAGHA NANDA
 ## Technologies Used
 -HTML
