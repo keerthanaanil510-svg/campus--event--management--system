@@ -56,6 +56,71 @@ app.post("/users", (req, res) => {
 
 });
 
+app.post("/login", (req, res) => {
+
+    console.log(req.body);
+
+    const { email, password } = req.body;
+
+    const sql = `
+        SELECT * FROM users
+        WHERE email = ? AND password = ?
+    `;
+
+    db.query(sql, [email, password], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            res.send("Login error");
+        }
+
+        else if (result.length > 0) {
+            res.send("Login successful");
+        }
+
+        else {
+            res.send("Invalid email or password");
+        }
+
+    });
+
+});
+
+app.post("/events", (req, res) => {
+
+    console.log(req.body);
+
+    const {
+        event_name,
+        description,
+        event_date,
+        venue,
+        organizer
+    } = req.body;
+
+    const sql = `
+        INSERT INTO events
+        (event_name, description, event_date, venue, organizer)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [event_name, description, event_date, venue, organizer],
+        (err, result) => {
+
+            if (err) {
+                console.log(err);
+                res.send("Error creating event");
+            } else {
+                res.send("Event created successfully");
+            }
+
+        }
+    );
+
+});
+
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
