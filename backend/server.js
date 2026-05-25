@@ -11,6 +11,9 @@ app.get("/", (req, res) => {
     res.send("Backend Server Running");
 });
 
+
+// GET USERS
+
 app.get("/users", (req, res) => {
 
     const sql = "SELECT * FROM users";
@@ -28,9 +31,10 @@ app.get("/users", (req, res) => {
 
 });
 
-app.post("/users", (req, res) => {
 
-    console.log(req.body);
+// ADD USER
+
+app.post("/users", (req, res) => {
 
     const { full_name, email, password, role } = req.body;
 
@@ -56,9 +60,10 @@ app.post("/users", (req, res) => {
 
 });
 
-app.post("/login", (req, res) => {
 
-    console.log(req.body);
+// LOGIN
+
+app.post("/login", (req, res) => {
 
     const { email, password } = req.body;
 
@@ -86,9 +91,10 @@ app.post("/login", (req, res) => {
 
 });
 
-app.post("/events", (req, res) => {
 
-    console.log(req.body);
+// CREATE EVENT
+
+app.post("/events", (req, res) => {
 
     const {
         event_name,
@@ -120,6 +126,10 @@ app.post("/events", (req, res) => {
     );
 
 });
+
+
+// GET EVENTS
+
 app.get("/events", (req, res) => {
 
     const sql = "SELECT * FROM events";
@@ -136,6 +146,33 @@ app.get("/events", (req, res) => {
     });
 
 });
+
+
+// REGISTER EVENT
+
+app.post("/register-event", (req, res) => {
+
+    const { user_id, event_id } = req.body;
+
+    const sql = `
+        INSERT INTO registrations (user_id, event_id)
+        VALUES (?, ?)
+    `;
+
+    db.query(sql, [user_id, event_id], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            res.send("Registration failed");
+        } else {
+            res.send("Event registered successfully");
+        }
+
+    });
+
+});
+
+
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
