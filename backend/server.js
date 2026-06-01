@@ -173,6 +173,31 @@ app.post("/register-event", (req, res) => {
 });
 
 
+app.get("/my-registrations/:user_id", (req, res) => {
+
+    const user_id = req.params.user_id;
+
+    const sql = `
+        SELECT events.*
+        FROM registrations
+        JOIN events ON registrations.event_id = events.id
+        WHERE registrations.user_id = ?
+    `;
+
+    db.query(sql, [user_id], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            res.send("Error fetching registrations");
+        } else {
+            res.send(result);
+        }
+
+    });
+
+});
 app.listen(5000, () => {
+
     console.log("Server running on port 5000");
+
 });
