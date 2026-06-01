@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All Events</title>
+</head>
+
+<body>
+
+    <h1>All Events</h1>
+
+    <div id="eventsContainer"></div>
+
+<script>
+
+    async function fetchEvents() {
+
+        const response = await fetch("http://localhost:5000/events");
+
+        const events = await response.json();
+
+        console.log(events);
+
+        const container = document.getElementById("eventsContainer");
+
+        container.innerHTML = "";
+
+        events.forEach((event) => {
+
+            container.innerHTML += `
+                <div style="border:1px solid black; padding:10px; margin:10px;">
+
+                    <h2>${event.event_name}</h2>
+
+                    <p>${event.description}</p>
+
+                    <p>Date: ${event.event_date.split("T")[0]}</p>
+
+                    <p>Venue: ${event.venue}</p>
+
+                    <p>Organizer: ${event.organizer}</p>
+
+                    <button onclick="registerEvent(${event.id})">
+                        Register
+                    </button>
+
+                </div>
+            `;
+
+        });
+
+    }
+
+    async function registerEvent(eventId) {
+
+    const registrationData = {
+
+        user_id: 1,
+        event_id: eventId
+
+    };
+
+    const response = await fetch("http://localhost:5000/register-event", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(registrationData)
+
+    });
+
+    const result = await response.text();
+
+    alert(result);
+
+}
+
+    fetchEvents();
+
+</script>
+
+</body>
+
+</html>

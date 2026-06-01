@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Registrations</title>
+</head>
+
+<body>
+
+    <h1>My Registered Events</h1>
+
+    <div id="container"></div>
+
+    <script>
+
+        async function loadMyEvents() {
+
+            const user_id = 1; // temporary (we will connect login later)
+
+            const response = await fetch(`http://localhost:5000/my-registrations/${user_id}`);
+
+            const events = await response.json();
+
+            const container = document.getElementById("container");
+
+            container.innerHTML = "";
+
+            if (events.length === 0) {
+                container.innerHTML = "<p>No registrations yet</p>";
+                return;
+            }
+
+            events.forEach(event => {
+
+                container.innerHTML += `
+                    <div style="border:1px solid black; padding:10px; margin:10px;">
+                        <h2>${event.event_name}</h2>
+                        <p>${event.description}</p>
+                        <p>Date: ${event.event_date.split("T")[0]}</p>
+                        <p>Venue: ${event.venue}</p>
+                        <p>Organizer: ${event.organizer}</p>
+                    </div>
+                `;
+
+            });
+
+        }
+
+        loadMyEvents();
+
+    </script>
+
+</body>
+
+</html>
