@@ -44,6 +44,11 @@
                     <button onclick="registerEvent(${event.id})">
                         Register
                     </button>
+                   
+
+                    <button onclick="deleteEvent(${event.id})">
+                        Delete
+                    </button>
 
                 </div>
             `;
@@ -56,7 +61,7 @@
 
     const registrationData = {
 
-        user_id: 1,
+        user_id: localStorage.getItem("user_id"),
         event_id: eventId
 
     };
@@ -76,6 +81,22 @@
     const result = await response.text();
 
     alert(result);
+
+}
+    async function deleteEvent(eventId) {
+
+        const response = await fetch(
+            `http://localhost:5000/events/${eventId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        const result = await response.text();
+
+        alert(result);
+
+        fetchEvents();
 
 }
 

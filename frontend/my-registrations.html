@@ -16,7 +16,7 @@
 
         async function loadMyEvents() {
 
-            const user_id = 1; // temporary (we will connect login later)
+            const user_id = localStorage.getItem("user_id"); // temporary (we will connect login later)
 
             const response = await fetch(`http://localhost:5000/my-registrations/${user_id}`);
 

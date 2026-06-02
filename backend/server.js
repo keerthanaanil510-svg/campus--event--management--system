@@ -80,7 +80,12 @@ app.post("/login", (req, res) => {
         }
 
         else if (result.length > 0) {
-            res.send("Login successful");
+
+            res.json({
+            message: "Login successful",
+            user_id: result[0].user_id
+            });
+
         }
 
         else {
@@ -196,6 +201,43 @@ app.get("/my-registrations/:user_id", (req, res) => {
     });
 
 });
+app.delete("/events/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    const deleteRegistrations =
+        "DELETE FROM registrations WHERE event_id = ?";
+
+    db.query(deleteRegistrations, [id], (err) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("Error deleting registrations");
+        }
+
+        const deleteEvent =
+            "DELETE FROM events WHERE id = ?";
+
+        db.query(deleteEvent, [id], (err) => {
+
+            if (err) {
+                console.log(err);
+                res.send("Error deleting event");
+            } else {
+                res.send("Event deleted successfully");
+            }
+
+        });
+
+    });
+
+});
+
+
+
+
+
+
 app.listen(5000, () => {
 
     console.log("Server running on port 5000");
