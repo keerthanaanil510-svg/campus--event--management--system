@@ -233,7 +233,45 @@ app.delete("/events/:id", (req, res) => {
 
 });
 
+app.put("/events/:id", (req, res) => {
 
+    const id = req.params.id;
+
+    const {
+        event_name,
+        description,
+        event_date,
+        venue,
+        organizer
+    } = req.body;
+
+    const sql = `
+        UPDATE events
+        SET
+            event_name = ?,
+            description = ?,
+            event_date = ?,
+            venue = ?,
+            organizer = ?
+        WHERE id = ?
+    `;
+
+    db.query(
+        sql,
+        [event_name, description, event_date, venue, organizer, id],
+        (err, result) => {
+
+            if (err) {
+                console.log(err);
+                res.send("Error updating event");
+            } else {
+                res.send("Event updated successfully");
+            }
+
+        }
+    );
+
+});
 
 
 
