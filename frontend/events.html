@@ -48,7 +48,27 @@
 
         container.innerHTML = "";
 
+        const role = localStorage.getItem("role");
+
+        let adminButtons = "";
+
         events.forEach((event) => {
+
+            let adminButtons = "";
+
+            if (role === "admin") {
+
+                adminButtons = `
+                <button onclick="deleteEvent(${event.id})">
+                    Delete
+                </button>
+
+                <button onclick="editEvent(${event.id})">
+                Edit
+                </button>
+                 `;
+
+}
 
             container.innerHTML += `
                 <div style="border:1px solid black; padding:10px; margin:10px;">
@@ -67,14 +87,8 @@
                         Register
                     </button>
                    
-
-                    <button onclick="deleteEvent(${event.id})">
-                        Delete
-                    </button>
+                    ${adminButtons}
                     
-                    <button onclick="editEvent(${event.id})">
-                        Edit
-                    </button>
 
                 </div>
             `;
@@ -114,7 +128,14 @@
         const response = await fetch(
             `http://localhost:5000/events/${eventId}`,
             {
-                method: "DELETE"
+                method: "DELETE",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    role: localStorage.getItem("role")
+                })
             }
         );
 
@@ -146,7 +167,8 @@ async function editEvent(eventId) {
                 description: "Updated Description",
                 event_date: "2026-06-01",
                 venue: "Updated Venue",
-                organizer: "Updated Organizer"
+                organizer: "Updated Organizer",
+                role: localStorage.getItem("role")
             })
         }
     );

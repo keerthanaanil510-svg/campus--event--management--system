@@ -49,6 +49,21 @@
     </form>
 
     <script>
+        if (!localStorage.getItem("user_id")) {
+
+       alert("Please login first");
+
+        window.location.href = "login.html";
+
+}
+        if (localStorage.getItem("role") !== "admin") {
+
+           alert("Access denied. Admin only.");
+
+            window.location.href = "events.html";
+
+}
+
         function logout() {
 
         localStorage.removeItem("user_id");
@@ -68,6 +83,8 @@
 
             const eventData = {
 
+                
+
                 event_name: document.getElementById("event_name").value,
 
                 description: document.getElementById("description").value,
@@ -76,7 +93,11 @@
 
                 venue: document.getElementById("venue").value,
 
-                organizer: document.getElementById("organizer").value
+                organizer: document.getElementById("organizer").value,
+
+                role: localStorage.getItem("role")
+
+                
 
             };
 

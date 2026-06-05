@@ -83,7 +83,8 @@ app.post("/login", (req, res) => {
 
             res.json({
             message: "Login successful",
-            user_id: result[0].user_id
+            user_id: result[0].user_id,
+            role: result[0].role
             });
 
         }
@@ -100,6 +101,12 @@ app.post("/login", (req, res) => {
 // CREATE EVENT
 
 app.post("/events", (req, res) => {
+
+    const { role } = req.body;
+
+    if (role !== "admin") {
+        return res.send("Access denied. Admin only.");
+}
 
     const {
         event_name,
@@ -203,6 +210,12 @@ app.get("/my-registrations/:user_id", (req, res) => {
 });
 app.delete("/events/:id", (req, res) => {
 
+    const { role } = req.body;
+
+    if (role !== "admin") {
+        return res.send("Access denied. Admin only.");
+}
+
     const id = req.params.id;
 
     const deleteRegistrations =
@@ -234,6 +247,12 @@ app.delete("/events/:id", (req, res) => {
 });
 
 app.put("/events/:id", (req, res) => {
+
+    const { role } = req.body;
+
+    if (role !== "admin") {
+        return res.send("Access denied. Admin only.");
+}
 
     const id = req.params.id;
 
