@@ -7,12 +7,45 @@
 </head>
 
 <body>
+    <h1>Campus Event Management System</h1>
 
-    <h1>My Registered Events</h1>
+    <div>
+
+        <a href="events.html">Events</a>
+
+        <a href="create-event.html">Create Event</a>
+
+        <a href="my-registrations.html">My Registrations</a>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+    <h2>My Registered Events</h2>
 
     <div id="container"></div>
 
     <script>
+        function logout() {
+
+        localStorage.removeItem("user_id");
+
+        alert("Logged out successfully");
+
+        window.location.href = "login.html";
+
+}
+
+
+        if (!localStorage.getItem("user_id")) {
+
+    alert("Please login first");
+
+    window.location.href = "login.html";
+
+}
 
         async function loadMyEvents() {
 

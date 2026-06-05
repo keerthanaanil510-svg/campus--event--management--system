@@ -8,11 +8,33 @@
 
 <body>
 
-    <h1>All Events</h1>
+    <h1>Campus Event Management System</h1>
 
-    <div id="eventsContainer"></div>
+    <div>
+
+        <a href="events.html">Events</a>
+
+        <a href="create-event.html">Create Event</a>
+
+        <a href="my-registrations.html">My Registrations</a>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+    <h2>All Events</h2>
+        <div id="eventsContainer"></div>
 
 <script>
+    if (!localStorage.getItem("user_id")) {
+
+    alert("Please login first");
+
+    window.location.href = "login.html";
+
+}
 
     async function fetchEvents() {
 
@@ -48,6 +70,10 @@
 
                     <button onclick="deleteEvent(${event.id})">
                         Delete
+                    </button>
+                    
+                    <button onclick="editEvent(${event.id})">
+                        Edit
                     </button>
 
                 </div>
@@ -97,6 +123,48 @@
         alert(result);
 
         fetchEvents();
+
+}
+
+async function editEvent(eventId) {
+
+    const newName = prompt("Enter new event name:");
+
+    if (!newName) return;
+
+    const response = await fetch(
+        `http://localhost:5000/events/${eventId}`,
+        {
+            method: "PUT",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                event_name: newName,
+                description: "Updated Description",
+                event_date: "2026-06-01",
+                venue: "Updated Venue",
+                organizer: "Updated Organizer"
+            })
+        }
+    );
+
+    const result = await response.text();
+
+    alert(result);
+
+    fetchEvents();
+
+}
+function logout() {
+
+    localStorage.removeItem("user_id");
+
+    alert("Logged out successfully");
+
+    window.location.href = "login.html";
 
 }
 
