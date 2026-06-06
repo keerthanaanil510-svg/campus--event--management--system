@@ -1,8 +1,5 @@
 # Campus Events and Club Management System
-## Team Members
--KEERTHANA K V
--GAYATHRI AJITH
--ANAGHA NANDA
+A platform to view,create and register events
 ## Technologies Used
 -HTML
 -CSS
