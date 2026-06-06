@@ -90,7 +90,9 @@ app.post("/login", (req, res) => {
         }
 
         else {
-            res.send("Invalid email or password");
+            res.json({
+            message: "Invalid email or password"
+            });
         }
 
     });

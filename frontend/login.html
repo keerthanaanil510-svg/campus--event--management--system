@@ -2,12 +2,15 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1>User Login</h1>
+    <h1>USER LOGIN</h1>
 
-    <form id="loginForm">
+    <div id="message"></div>
+
+    <form id="loginForm" class="form">
 
         <input type="email" id="email" placeholder="Email" required>
         <br><br>
@@ -15,7 +18,7 @@
         <input type="password" id="password" placeholder="Password" required>
         <br><br>
 
-        <button type="submit">Login</button>
+        <button class="border" type="submit">Login</button>
 
     </form>
     <p>
@@ -60,8 +63,7 @@
 
                 }else {
 
-                    alert(result.message);
-
+                   alert(result.message);
                 }
 
         });

@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>My Registrations</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <h1>Campus Event Management System</h1>
 
-    <div>
+    <div class="navbar">
 
         <a href="events.html">Events</a>
 
@@ -17,13 +18,13 @@
 
         <a href="my-registrations.html">My Registrations</a>
 
-        <button onclick="logout()">
+        <button class="border" onclick="logout()">
             Logout
         </button>
 
     </div>
 
-    <h2>My Registered Events</h2>
+    <h2>MY REGISTERED EVENT</h2>
 
     <div id="container"></div>
 
@@ -67,7 +68,7 @@
             events.forEach(event => {
 
                 container.innerHTML += `
-                    <div style="border:1px solid black; padding:10px; margin:10px;">
+                    <div class="event-card">
                         <h2>${event.event_name}</h2>
                         <p>${event.description}</p>
                         <p>Date: ${event.event_date.split("T")[0]}</p>

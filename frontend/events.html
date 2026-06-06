@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>All Events</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
     <h1>Campus Event Management System</h1>
 
-    <div>
+    <div  class="navbar">
 
         <a href="events.html">Events</a>
 
@@ -18,13 +19,13 @@
 
         <a href="my-registrations.html">My Registrations</a>
 
-        <button onclick="logout()">
+        <button  class="border" onclick="logout()">
             Logout
         </button>
 
     </div>
 
-    <h2>All Events</h2>
+    <h2>ALL EVENTS</h2>
         <div id="eventsContainer"></div>
 
 <script>
@@ -59,11 +60,11 @@
             if (role === "admin") {
 
                 adminButtons = `
-                <button onclick="deleteEvent(${event.id})">
+                <button class="border" onclick="deleteEvent(${event.id})">
                     Delete
                 </button>
 
-                <button onclick="editEvent(${event.id})">
+                <button class="border" onclick="editEvent(${event.id})">
                 Edit
                 </button>
                  `;
@@ -71,7 +72,7 @@
 }
 
             container.innerHTML += `
-                <div style="border:1px solid black; padding:10px; margin:10px;">
+                <div class="event-card">
 
                     <h2>${event.event_name}</h2>
 
@@ -83,7 +84,7 @@
 
                     <p>Organizer: ${event.organizer}</p>
 
-                    <button onclick="registerEvent(${event.id})">
+                    <button class="border" onclick="registerEvent(${event.id})">
                         Register
                     </button>
                    
